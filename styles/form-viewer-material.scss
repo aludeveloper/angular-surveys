@@ -11,3 +11,42 @@
     margin: 0;
   }
 }
+
+.task-title {
+	text-align: center;
+    color: #B3282D;
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-top: 0px;
+}
+
+.task-description {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.decorated {
+     overflow: hidden;
+     text-align: center;
+ }
+.decorated > span {
+    position: relative;
+    display: inline-block;
+}
+.decorated > span:before, .decorated > span:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    border-bottom: 1px solid;
+    width: 50px; /* half of limiter*/
+    margin: 0 5px;
+}
+.decorated > span:before { 
+    right: 100%;
+}
+.decorated > span:after {
+    left: 100%;
+}
