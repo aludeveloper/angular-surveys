@@ -23,6 +23,10 @@
                     <div ng-switch-when="paragraph">
                         <p ng-bind-html="::ctrl.print(pageElement.paragraph.html)"></p>
                     </div>
+                     <div ng-switch-when="link">
+                        <a ng-bind-html="::ctrl.print(pageElement.link.html)"></a>
+                        <a target="_blank" href='http://www.google.com'>check</a>
+                    </div>
 
                 </div>
 
