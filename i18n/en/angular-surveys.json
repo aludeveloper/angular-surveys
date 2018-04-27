@@ -94,6 +94,9 @@
                 },
                 "file":{
                     "name": "File"
+                },
+                "daterange":{
+                    "name": "daterange"
                 }
 
             },
