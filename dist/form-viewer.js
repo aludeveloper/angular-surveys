@@ -355,7 +355,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             ctrl.onResponseChanged = function(pageElement){
                 ctrl.setDefaultNextPage();
-                $rootScope.$broadcast("formSubmitValid",{ formSubmitValid: ctrl.form});
+                $rootScope.$broadcast("mwForm.pageEvents.formSubmitValid",{ formSubmitValid: ctrl.form});
                 ctrl.updateNextPageBasedOnAllAnswers();
             };
 
