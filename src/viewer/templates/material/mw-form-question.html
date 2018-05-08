@@ -182,6 +182,11 @@
             </md-input-container>
         </div>
 
+        <div ng-switch-when="daterange" class="form-inline">            
+            <md-datepicker ng-model="ctrl.questionResponse.startDate" md-max-date="ctrl.questionResponse.endDate" md-min-date="ctrl.today" md-placeholder="Start date" ng-change="ctrl.test(ctrl.questionResponse.startDate)"></md-datepicker>
+            <md-datepicker ng-model="ctrl.questionResponse.endDate" md-min-date="ctrl.questionResponse.startDate" ng-disabled="!ctrl.questionResponse.startDate" md-placeholder="End date"></md-datepicker>
+        </div>
+
     </div>
 
 </div>

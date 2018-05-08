@@ -431,6 +431,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                 var ctrl = this;
                 ctrl.largeFileFlag = false;
                 ctrl.fileSelectedEvent = false;
+                ctrl.today = new Date();
                 // Put initialization logic inside `$onInit()`
                 // to make sure bindings have been initialized.
                 this.$onInit = function() {
