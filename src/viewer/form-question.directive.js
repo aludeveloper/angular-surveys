@@ -145,7 +145,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                 //file uploads
 
                 ele.bind("change", function(changeEvent) {
-                    var fileSize = changeEvent.target.files[0].size / 1024;
+                    var fileSize = changeEvent.target.files[0].size / 4096;
                     console.log("file size.....................",fileSize);
                     if (fileSize <= 1024) {
                         ctrl.fileSelectedEvent = true;
@@ -164,7 +164,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                     } else {
                         ctrl.largeFileFlag = true; 
                         $rootScope.$broadcast('fileRequiredFlag', ctrl.largeFileFlag);
-                        alert("File size is larze; maximum file size 1 MB");           
+                        alert("File size is large; maximum file size 4 MB");           
                     }
                 });
             }

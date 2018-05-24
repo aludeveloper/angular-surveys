@@ -568,7 +568,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                     } else {
                         ctrl.largeFileFlag = true; 
                         $rootScope.$broadcast('fileRequiredFlag', ctrl.largeFileFlag);
-                        alert("File size is larze; maximum file size 1 MB");           
+                        alert("File size is large; maximum file size 1 MB");           
                     }
                 });
             }
