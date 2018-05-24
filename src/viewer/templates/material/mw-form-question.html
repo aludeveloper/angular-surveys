@@ -169,7 +169,7 @@
                 <span>
                     <input class="form-control file-input" ng-class="ctrl.fileSelectedEvent ? 'fileupload-text-black' : 'fileupload-text'" ng-model="ctrl.questionResponse.fileName" type="file" accept=".png, .tif, .jpg, .jpeg, .pdf" fileread="ctrl.questionResponse.answer"  ng-readonly="ctrl.readOnly" ng-required="ctrl.question.required && ctrl.questionResponse.fileName == undefined" placeholder="&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Max file size 1MB">
                 </span>
-                <span class="mw-file-input-label" data-filetype="png">
+                <span class="mw-file-input-label">
                     {{ctrl.questionResponse.fileName_1}}
                 </span>
             </md-input-container>
