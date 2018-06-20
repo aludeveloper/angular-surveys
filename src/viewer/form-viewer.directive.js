@@ -12,6 +12,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             formStatus: '=?', //wrapper for internal angular form object
             onSubmit: '&',
             onSave: '&',
+            onBack: '&',
             api: '=?'
 
         },
@@ -192,6 +193,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             ctrl.goToPrevPage= function(){
                 window.scrollTo(0,0);
+                ctrl.onBack();
                 var prevPage = ctrl.prevPages.pop();
                 ctrl.setCurrentPage(prevPage);
                 ctrl.updateNextPageBasedOnAllAnswers();
