@@ -193,7 +193,6 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             ctrl.goToPrevPage= function(){
                 window.scrollTo(0,0);
-                debugger
                 ctrl.onBack();
                 var prevPage = ctrl.prevPages.pop();
                 ctrl.setCurrentPage(prevPage);
