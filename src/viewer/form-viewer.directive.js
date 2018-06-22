@@ -101,6 +101,17 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             };
 
+            ctrl.submitValid = function() {
+                if( ctrl.options.disableSubmit || ctrl.form.$invalid || ctrl.largeFileFlag) {
+                    localStorage.setItem('submitValid', true);
+                    return true;
+                }else {
+                    localStorage.setItem('submitValid', false);
+                    return false;
+                } 
+
+            };
+
             ctrl.setCurrentPage = function (page) {
                 ctrl.currentPage = page;
                 if(!page){
