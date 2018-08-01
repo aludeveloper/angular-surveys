@@ -94,6 +94,12 @@
         },
         "file": {
           "name": "archivo"
+        },
+        "daterange":{
+            "name": "daterange"
+        },
+        "telephone":{
+            "name": "Telephone"
         }
 
       },

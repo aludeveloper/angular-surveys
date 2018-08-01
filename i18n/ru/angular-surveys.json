@@ -94,7 +94,13 @@
 				},
 				"file": {
 					"name": "файл"
-				}
+				},
+                "daterange":{
+                    "name": "daterange"
+                },
+                "telephone":{
+                    "name": "Telephone"
+                }
 			},
 			"text": "Техт вопроса",
 			"type": "Тип вопроса",

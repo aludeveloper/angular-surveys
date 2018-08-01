@@ -23,6 +23,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             var ctrl = this;
             var rootScope = $rootScope;
             ctrl.largeFileFlag = false;
+            ctrl.invalidPhone = false;
             $rootScope.$on("fileRequiredFlag", function(event, flag) {
                 ctrl.largeFileFlag = flag;
             });
@@ -39,6 +40,10 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
                 ctrl.submitStatus='NOT_SUBMITTED';
                 ctrl.formSubmitted=false;
+
+                $rootScope.$on("invalidPhoneFlag", function(event, flag) {
+                    ctrl.invalidPhone = flag;
+                });
 
                 sortPagesByNumber();
                 ctrl.pageIdToPage={};
@@ -102,7 +107,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             ctrl.submitValid = function() {
-                if( ctrl.options.disableSubmit || ctrl.form.$invalid || ctrl.largeFileFlag) {
+                if( ctrl.options.disableSubmit || ctrl.form.$invalid || ctrl.largeFileFlag || ctrl.invalidPhone) {
                     localStorage.setItem('submitValid', true);
                     return true;
                 }else {

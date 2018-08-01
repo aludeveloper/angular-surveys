@@ -93,6 +93,16 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
+        service.$extractResponseForTelephoneQuestion = function(question, questionResponse) {
+            if(questionResponse.countryCode != undefined){
+                var result = questionResponse.countryCode + questionResponse.answer;
+                return result;
+            }else{
+                return questionResponse.answer;
+            }
+            
+        };  
+
         service.$extractResponseForGridQuestion = function(question, questionResponse) {
 
             if (!question.grid || !question.grid.rows) {
@@ -174,6 +184,9 @@ angular.module('mwFormUtils.responseUtils', [])
                 }
                 if (question.type == 'division') {
                     return service.$extractResponseForDivisionQuestion(question, questionResponse);
+                }
+                if (question.type == 'telephone') {
+                    return service.$extractResponseForTelephoneQuestion(question, questionResponse);
                 }
             }
 
@@ -358,7 +371,8 @@ angular.module('mwFormUtils.responseUtils', [])
                 "select",
                 "grid",
                 "priority",
-                "division"
+                "division",
+                "telephone"
             ];
 
             for (var i = 0; i < questions.length; i++) {
