@@ -27,6 +27,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                 var ctrl = this;
                 ctrl.largeFileFlag = false;
                 ctrl.fileSelectedEvent = false;
+                ctrl.invalidPhone = false;
                 ctrl.today = new Date();
                 // Put initialization logic inside `$onInit()`
                 // to make sure bindings have been initialized.
@@ -91,6 +92,76 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                     ctrl.isAnswerSelected = false;
                     ctrl.initialized = true;
                 };
+
+
+                ctrl.mappingTelephoneQuestion = function(qdata) {
+                    $timeout(function() {
+                        if(qdata.type == "telephone"){
+                            var telDynamicId = '#'+ qdata.id + 'phone';
+                            var telDynamicError = '#'+ qdata.id + 'error-msg';
+                            var telDynamicValid = '#'+ qdata.id + 'valid-msg';
+                            var telInput = $(telDynamicId),
+                              errorMsg = $(telDynamicError),
+                              validMsg = $(telDynamicValid);
+
+                              console.log(telInput);
+                            // initialise plugin
+                            
+                            telInput.intlTelInput({
+                              utilsScript: "../bower_components/intl-tel-input/build/js/utils.js"
+                            });
+
+                            var reset = function() {
+                              telInput.removeClass("error");
+                              errorMsg.addClass("hide");
+                              validMsg.addClass("hide");
+                            };
+
+                            // on blur: validate
+                            telInput.blur(function() {
+                              reset();
+                              if ($.trim(telInput.val())) {
+                                if (telInput.intlTelInput("isValidNumber")) {
+                                    ctrl.invalidPhone = false;
+                                    $rootScope.$broadcast('invalidPhoneFlag', ctrl.invalidPhone);
+                                  validMsg.removeClass("hide");
+                                } else {
+                                    ctrl.invalidPhone = true;
+                                    $rootScope.$broadcast('invalidPhoneFlag', ctrl.invalidPhone);
+                                  telInput.addClass("error");
+                                  errorMsg.removeClass("hide");
+                                }
+                              }
+                            });
+
+                            // on keyup / change flag: reset
+                            telInput.on("keyup change", reset);
+                        }
+
+                    }, 3000);
+                }
+
+                ctrl.initQuestionsView = function(qdata) {
+                    console.log("welcome to the initQuestionsView");
+                    //ctrl.hideRadioLinkedQuestions(qdata);
+                    
+                    ctrl.mappingTelephoneQuestion(qdata);
+                };
+
+                $timeout(function() {
+                    $("#phone").on("countrychange", function(e, countryData) {
+                        console.log(countryData);
+                        ctrl.questionResponse.countryCode = countryData.dialCode;
+                    });
+                }, 500);
+
+
+                ctrl.textareaChanged = function(){
+                    delete ctrl.questionResponse.other;
+                    ctrl.isOtherAnswer = false;
+                    ctrl.answerChanged();
+                };
+
 
                 ctrl.selectedAnswerChanged = function() {
                     delete ctrl.questionResponse.other;

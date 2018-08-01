@@ -4,7 +4,7 @@
         {{::ctrl.print(ctrl.question.text)}} <span ng-if="ctrl.question.required">*</span>
     </div>
 
-    <div class="mw-question-answers" ng-switch="ctrl.question.type">
+    <div class="mw-question-answers" ng-switch="ctrl.question.type" ng-init="ctrl.initQuestionsView(ctrl.question)">
         <div ng-switch-when="text">
             <md-input-container class="md-block" md-no-float>
                 <input class="form-control" type="text" ng-model="ctrl.questionResponse.answer"  placeholder="{{'mwForm.question.preview.text'|translate}}" ng-required="ctrl.question.required" ng-readonly="ctrl.readOnly">
@@ -185,6 +185,22 @@
         <div ng-switch-when="daterange" class="form-inline">            
             <md-datepicker ng-model="ctrl.questionResponse.startDate" md-max-date="ctrl.questionResponse.endDate" md-min-date="ctrl.today" md-placeholder="Start date" ng-change="ctrl.test(ctrl.questionResponse.startDate)"></md-datepicker>
             <md-datepicker ng-model="ctrl.questionResponse.endDate" md-min-date="ctrl.questionResponse.startDate" ng-disabled="!ctrl.questionResponse.startDate" md-placeholder="End date"></md-datepicker>
+        </div>
+
+        <div ng-switch-when="telephone" class="form-inline" id="{{ctrl.question.id}}">            
+            
+            <div layout="row" layout-align="start center">
+                <md-input-container class="md-block" md-no-float>
+                    
+                    <input class="form-control" id="{{ctrl.question.id + 'phone'}}" type="tel" ng-model="ctrl.questionResponse.answer" ng-required="ctrl.question.required" ng-readonly="ctrl.readOnly">
+                </md-input-container>
+
+                <div>
+                    <span id="{{ctrl.question.id + 'valid-msg'}}" class="hide">&#x2713; Valid phone number</span>
+                    <span id="{{ctrl.question.id + 'error-msg'}}" class="hide">Invalid input</span>
+                </div>
+            </div>
+            
         </div>
 
     </div>

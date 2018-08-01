@@ -94,6 +94,12 @@
                 },
                 "file":{
                     "name": "plik"
+                },
+                "daterange":{
+                    "name": "daterange"
+                },
+                "telephone":{
+                    "name": "Telephone"
                 }
             },
             "text": "Treść pytania",
