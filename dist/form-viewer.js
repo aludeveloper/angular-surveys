@@ -531,7 +531,14 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                             // initialise plugin
                             
                             telInput.intlTelInput({
-                              utilsScript: "../bower_components/intl-tel-input/build/js/utils.js"
+                                initialCountry: "auto",
+                                geoIpLookup: function(callback) {
+                                    $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+                                        var countryCode = (resp && resp.country) ? resp.country : "";
+                                        callback(countryCode);
+                                    });
+                                },
+                                utilsScript: "../bower_components/intl-tel-input/build/js/utils.js"
                             });
 
                             var reset = function() {
@@ -559,6 +566,10 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
 
                             // on keyup / change flag: reset
                             telInput.on("keyup change", reset);
+                            $(telDynamicId).on("countrychange", function(e, countryData) {
+                                console.log(countryData);
+                                ctrl.questionResponse.countryCode = countryData.dialCode;
+                            });
                         }
 
                     }, 3000);
@@ -570,14 +581,6 @@ angular.module('mwFormViewer').factory("FormQuestionId", function() {
                     
                     ctrl.mappingTelephoneQuestion(qdata);
                 };
-
-                $timeout(function() {
-                    $("#phone").on("countrychange", function(e, countryData) {
-                        console.log(countryData);
-                        ctrl.questionResponse.countryCode = countryData.dialCode;
-                    });
-                }, 500);
-
 
                 ctrl.textareaChanged = function(){
                     delete ctrl.questionResponse.other;
