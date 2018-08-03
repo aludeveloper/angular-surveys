@@ -33,7 +33,8 @@
     "angular-elastic": "2.x",
     "angular-bootstrap": "^1.2.4",
     "Sortable": "dev",
-    "intl-tel-input": "^12.4.0"
+    "intl-tel-input": "^12.4.0",
+    "angular-cookies": "1.5.8"
   },
   "devDependencies": {
     "bootstrap-sass": "3.x",

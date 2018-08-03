@@ -19,7 +19,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
         templateUrl: 'mw-form-viewer.html',
         controllerAs: 'ctrl',
         bindToController: true,
-        controller: ["$timeout", "$interpolate", function($timeout, $interpolate){
+        controller: ["$timeout", "$interpolate","$cookies", function($timeout, $interpolate, $cookies){
             var ctrl = this;
             var rootScope = $rootScope;
             ctrl.largeFileFlag = false;
@@ -140,6 +140,53 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             };
 
+            ctrl.getSfFlagValue = function() {
+				var conditionalParaSfKey;
+				angular.forEach(ctrl.formData.pages, function(obj, key) {
+					angular.forEach(obj.elements, function(obj1, key1) {
+						if (obj1.selecteditem && obj1.selecteditem.sfkey && obj1.type == "paragraphcondition") {
+							conditionalParaSfKey = obj1.selecteditem.sfkey.key;
+						}
+					});
+				});
+
+				var response;
+				var auth_token = localStorage.getItem('auth_token');
+				var baseURL = __env.apiUrl
+				var userInfo = JSON.parse($cookies.get("userInfo"));
+				var applicationData = userInfo.applicationIdMap;
+				var sfAppId;
+				var appName = localStorage.getItem('applicationName');
+				angular.forEach(applicationData, function(value, key) {
+					appName = key;
+					sfAppId = value;
+				});
+
+
+
+				if (conditionalParaSfKey != "" && conditionalParaSfKey != undefined && appName != "" && appName != undefined) {
+					$.ajax({
+						async: false,
+						headers: {
+							'X-AUTH-TOKEN': auth_token,
+							'content-Type': 'Application/Json'
+						},
+						url: baseURL + "/" + "salesforce/conditionalpara/" + conditionalParaSfKey + "/" + appName + "/" + userInfo.email,
+						success: function(result) {
+							console.log("Geting value", result);
+							response = result;
+						}
+					});
+				}
+
+				ctrl.sfFlag = response;
+				if (ctrl.sfFlag == "Pass") {
+					ctrl.condtionalParaFlag = true;
+				} else{
+					ctrl.condtionalParaFlag = false;
+				}
+            };
+            
 
             ctrl.setDefaultNextPage  = function(){
                 var index = ctrl.formData.pages.indexOf(ctrl.currentPage);
